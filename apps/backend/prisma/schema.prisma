@@ -20,6 +20,8 @@ model User {
   email String  @unique
   password String
   username String @unique
+  gender String?
+  age Int?
   bio String?
   posts Post[]
   likes Like[]
@@ -73,6 +75,7 @@ model Follow {
   followerId String
   following User @relation("userFollowing", fields: [followingId], references: [id])
   followingId String
+  createdAt DateTime @default(now())
 }
 
 model Notification {

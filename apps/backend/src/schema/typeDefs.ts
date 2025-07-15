@@ -6,7 +6,9 @@ type User {
     email: String!
     password: String!
     username: String!
-    bio: String!
+    gender: String
+    age: Int
+    bio: String
     posts: [Post!]!
     likes: [Like!]!
     comments: [Comment!]!
@@ -34,19 +36,34 @@ type Like {
 
 type Comment {
     id: ID!
-    text: string
+    text: String
     post: Post!
     user: User!
-    createdAt: string!
+    createdAt: String!
 }
 
-type Skill {}
+type Skill {
+    id: ID!
+    name: String!
+    user: User!
+}
 
-type Follow{}
+type Follow{
+    id: ID!
+    follower: User!
+    following: User!
+    createdAt: String!
+}
 
-type Notification {}
-
-
+type Notification {
+    id: ID!
+    type: String!
+    message: String!
+    user: User!
+    fromUser: User!
+    read: Boolean!
+    createdAt: String!
+}
 
 type Query {
         getUsers: [User!]!

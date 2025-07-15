@@ -1,5 +1,12 @@
 import { MyContext } from "../server"
 
+type createUserInput = {
+    name: String;
+    email: String;
+    password: String;
+    bio: String;
+}
+
 export const resolvers = {
     Query: {
         getUsers: async (_: any, __: any, context: MyContext) => {
@@ -22,6 +29,13 @@ export const resolvers = {
             return await context.prisma.post.findUnique({ 
                 where: { id: args.id }
             })
+        }
+    },
+
+    Mutation: {
+        createUser: (parent:any , args: { input: createUserInput }) => {
+            const user = args.input;
+            return user;
         }
     }
 }

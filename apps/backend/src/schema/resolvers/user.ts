@@ -1,4 +1,4 @@
-import { MyContext } from "../server"
+import { MyContext } from "../../server.js";
 
 type createUserInput = {
     name: String;
@@ -7,7 +7,7 @@ type createUserInput = {
     bio: String;
 }
 
-export const resolvers = {
+export const userResolvers = {
     Query: {
         getUsers: async (_: any, __: any, context: MyContext) => {
             return await context.prisma.user.findMany({
@@ -41,16 +41,6 @@ export const resolvers = {
                 }
             })
         },
-
-        getPosts: async(_:any, __:any, context: MyContext) => {
-            return await context.prisma.post.findMany();
-        },
-
-        post: async(_:any, args: {id: string}, context: MyContext) => {
-            return await context.prisma.post.findUnique({ 
-                where: { id: args.id }
-            })
-        }
     },
 
     Mutation: {
@@ -59,4 +49,5 @@ export const resolvers = {
             return user;
         }
     }
+
 }

@@ -4,7 +4,7 @@ import { expressMiddleware } from '@as-integrations/express4';
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
-import { typeDefs, resolvers } from './schema/index.js';
+import { schema } from './schema/index.js';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -17,8 +17,7 @@ export interface MyContext {
 const app = express();
 const httpServer = http.createServer(app);
 const server = new ApolloServer<MyContext>({
-  typeDefs,
-  resolvers,
+  schema,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 await server.start();

@@ -18,23 +18,59 @@ ${followTypeDefs}
 ${notificationTypeDefs}
 
 type Query {
-        getUsers: [User!]!
-        user(id: ID!): User!
+    # Users
+    getUsers: [User!]!
+    user(id: ID!): User!
 
-        getPosts: [Post!]!
-        post: Post!
+    # Posts
+    getPosts: [Post!]!
+    post(id: ID!): Post!
+
+
+    # Comments
+    getComments(postId: ID!): [Comment!]
+
+    # skills
+    userSkills(userId: ID!): [Skill!]
+
+    # Notifications
+    notifications(userId: ID!): [Notification!]
+
+
+    # Follows
+    followers(userId: ID!): [User!]
+    following(userId: ID!): [User!]
 
 }
 
 type Mutation {
+
+    # Users
     createUser(input: createUserInput): User!
-
+    updateUser(id: ID!, input: updateUserInput): User!
+    deleteUser(id: ID!): Boolean!
+    
+    # Posts
     createPost(input: createPostInput): Post!
-
     likePost(postId: ID!): Like!
     UnLikePost(postId: ID!): Boolean!
 
+    # Comments
+    addComment(comment: String!): Comment!
+    updateComment(id: ID!, updatedComment: String!): Comment!
+    deleteComment(id: ID!): Boolean!
 
+    # Skills
+    addSkill(newSkill: String!): Skill
+    updateSkill(id: ID!, updatedSkill: String!): Skill!
+    deleteSkill(id: ID!): Boolean!
+
+    # Notifications
+    sendNotificatiion(toUser: ID!, type: String!, message: String!): Notification
+    markNotificationRead(id: ID!): Notification
+
+    # Follows
+    followUser(followerId: ID!, followingId: ID!): Follow
+    unFollowUser(followerId: ID!, followingId: ID!): Boolean!
 }
-
 `

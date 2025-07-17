@@ -13,5 +13,9 @@ export const postResolvers = {
                 where: { id: args.id }
             })
         }
+    },
+
+    Mutation: {
+        
     }
 }

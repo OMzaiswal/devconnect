@@ -1,10 +1,13 @@
 import { MyContext } from "../../server.js";
 
-type createUserInput = {
-    name: String;
-    email: String;
-    password: String;
-    bio: String;
+type userInput = {
+    name: string;
+    email: string;
+    password: string;
+    username: string;
+    age: number;
+    gender: string;
+    bio: string;
 }
 
 export const userResolvers = {
@@ -44,10 +47,24 @@ export const userResolvers = {
     },
 
     Mutation: {
-        createUser: (parent:any , args: { input: createUserInput }) => {
+        createUser: async (parent:any , args: { input: userInput }, context: MyContext) => {
             const user = args.input;
-            return user;
+            const newUser = await context.prisma.user.create({
+                data: user
+            })
+            return newUser;
+        },
+
+        updateUser: async(_: any, args: { id: string, input: userInput }, context: MyContext) => {
+            const userData = args.input;
+            const id = args.id
+            const updatedUser = await context.prisma.user.update({
+                where: { id },
+                data: userData
+            })
+            return updatedUser;
         }
+
     }
 
 }

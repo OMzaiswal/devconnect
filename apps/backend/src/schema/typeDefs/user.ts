@@ -29,5 +29,14 @@ input createUserInput {
     bio: String
 }
 
+input updateUserInput {
+    name: String
+    email: String
+    password: String
+    username: String
+    age: Int
+    gender: String
+    bio: String
+}
 
 `

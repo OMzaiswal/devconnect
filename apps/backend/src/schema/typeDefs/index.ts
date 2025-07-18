@@ -1,3 +1,4 @@
+import { authTypeDefs } from "./auth.js";
 import { commentTypeDefs } from "./comment.js";
 import { followTypeDefs } from "./follow.js";
 import { likeTypeDefs } from "./like.js";
@@ -16,6 +17,7 @@ ${commentTypeDefs}
 ${skillTypeDefs}
 ${followTypeDefs}
 ${notificationTypeDefs}
+${authTypeDefs}
 
 type Query {
     # Users
@@ -47,6 +49,7 @@ type Mutation {
 
     # Users
     createUser(input: createUserInput): User!
+    signIn(email: String!, password: String!): User!
     updateUser(id: ID!, input: updateUserInput): User!
     deleteUser(id: ID!): Boolean!
     

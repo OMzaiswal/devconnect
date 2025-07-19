@@ -169,6 +169,23 @@ export const userResolvers = {
                 });
             }
         }
+    },
 
+
+    User: {
+        posts: async (parent: any, _: any, context: MyContext) => {
+            return await context.prisma.post.findMany({
+                where: { authorId: parent.id },
+                select: {
+                    id: true,
+                    content: true,
+                    imgUrl: true
+                }
+            })
+        },
+
+        // likes: async (parent: any, _:any, context: MyContext) => {
+            
+        // }
     }
 }

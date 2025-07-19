@@ -13,6 +13,6 @@ type Post {
 input createPostInput {
     content: String!
     imgUrl: String
-    userId: ID!
+    authorId: ID!
 }
 `

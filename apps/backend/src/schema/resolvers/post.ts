@@ -3,8 +3,13 @@ import { MyContext } from "../../server.js";
 
 type createPostInput = {
     content: string;
-    imgUrl: string;
+    imgUrl?: string;
     authorId: string;
+}
+
+type updatePostInputs = {
+    content?: string;
+    imgUrl?: string;
 }
 
 export const postResolvers = {
@@ -19,7 +24,7 @@ export const postResolvers = {
                     where: { authorId: context.userId }
                 });
             } catch(error) {
-                throw new GraphQLError('Failed to create posrt');
+                throw new GraphQLError('Failed to fetch posts');
             } 
         },
 
@@ -27,9 +32,14 @@ export const postResolvers = {
             if (!context.userId) {
                 throw new GraphQLError('Unauthenticated! You are not logged in');
             }
-            return await context.prisma.post.findUnique({ 
-                where: { id: args.id }
-            })
+            try {
+                return await context.prisma.post.findUnique({ 
+                    where: { id: args.id }
+                })
+            } catch (error) {
+                throw new GraphQLError('Failed to fetchh post')
+            }
+            
         }
     },
 
@@ -38,17 +48,53 @@ export const postResolvers = {
             if(!context.userId) {
                 throw new GraphQLError('Unauthenticated! You are not logged in');
             }
-            const newPost = await context.prisma.post.create({
-                data: {
-                    ...args.input
-                },
-                select: {
-                    id: true,
-                    content: true,
-                    imgUrl: true
+            try {
+                const newPost = await context.prisma.post.create({
+                    data: {
+                        ...args.input
+                    },
+                    select: {
+                        id: true,
+                        content: true,
+                        imgUrl: true
+                    }
+                })
+                return newPost;
+            } catch (error) {
+                throw new GraphQLError('Unable to create post!!');
+            }  
+        },
+
+        updatePost: async (_: any, args: { id: string, input: updatePostInputs }, context: MyContext) => {
+            if(!context.userId) {
+                throw new GraphQLError('Unauthenticated! You are not logged in');
+            }
+            try {
+                const oldPost = await context.prisma.post.findUnique({
+                    where: { id: args.id }
+                })
+
+                if(!oldPost) {
+                    throw new GraphQLError('Post does not exist!');
                 }
-            })
-            return newPost;
+
+                if (oldPost.authorId === context.userId) {
+                    const updatedPost = await context.prisma.post.update({
+                        where: { id: args.id },
+                        data: { ...args.input },
+                        select: {
+                            id: true,
+                            content: true,
+                            imgUrl: true
+                        }
+                    })
+                    return updatedPost;
+                } else {
+                    throw new GraphQLError('Unauthorized to edit this post!');
+                }
+            } catch(error) {
+                throw new GraphQLError('Unable to edit post');
+            }
         }
     }
 }

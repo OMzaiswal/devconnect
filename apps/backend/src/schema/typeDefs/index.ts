@@ -22,11 +22,11 @@ ${authTypeDefs}
 type Query {
     # Users
     getUsers: [User!]!
-    user(id: ID!): User!
+    user(id: ID!): User
 
     # Posts
     getPosts: [Post!]!
-    post(id: ID!): Post!
+    post(id: ID!): Post
 
 
     # Comments
@@ -49,12 +49,16 @@ type Mutation {
 
     # Users
     createUser(input: createUserInput): User!
-    signIn(email: String!, password: String!): User!
-    updateUser(id: ID!, input: updateUserInput): User!
+    signIn(email: String!, password: String!): AuthPayload
+    updateUser(id: ID!, input: updateUserInput): User
     deleteUser(id: ID!): Boolean!
     
     # Posts
     createPost(input: createPostInput): Post!
+    updatePost(id: ID!, input: updatePostInputs): Post
+
+
+    # Likes
     likePost(postId: ID!): Like!
     UnLikePost(postId: ID!): Boolean!
 

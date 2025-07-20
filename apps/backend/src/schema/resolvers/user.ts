@@ -168,6 +168,30 @@ export const userResolvers = {
                     extensions: { code: 'INTERNAL_SERVER_ERROR', originalError: error.message || 'An unknown error occurred.' }
                 });
             }
+        },
+
+        deleteUser: async (_: any, args: { id: string }, context: MyContext) => {
+            if (!context.userId) {
+                throw new GraphQLError('Unauthenticated!');
+            }
+            if ( args.id !== context.userId ) {
+                throw new GraphQLError('Unauthorized to delete this user!');
+            }
+            try {
+                const response = await context.prisma.user.delete({
+                    where: { id: args.id }
+                })
+                if (response) {
+                    return true;
+                }
+            } catch (error: any) {
+                if (error.code === 'P2025') {
+                    throw new GraphQLError('User does not exist');
+                }
+                else {
+                    throw new GraphQLError('Unable to delete user!!!');
+                }
+            }
         }
     },
 

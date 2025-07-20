@@ -15,4 +15,9 @@ input createPostInput {
     imgUrl: String
     authorId: ID!
 }
+
+input updatePostInputs {
+    content: String
+    imgUrl: String
+}
 `

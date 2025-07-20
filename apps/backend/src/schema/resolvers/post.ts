@@ -95,6 +95,29 @@ export const postResolvers = {
             } catch(error) {
                 throw new GraphQLError('Unable to edit post');
             }
+        },
+
+        deletePost: async (_: any, args: { id: string }, context: MyContext) => {
+            if(!context.userId) {
+                throw new GraphQLError('Unauthenticated! You are not logged in');
+            }
+            try {
+                const oldPost = await context.prisma.post.findUnique({
+                    where: { id: args.id }
+                })
+                if (!oldPost) {
+                    throw new GraphQLError('Post does not exist!');
+                }
+                if (oldPost.authorId !== context.userId) {
+                    throw new GraphQLError('Unauthorized to delete this post!');
+                }
+                await context.prisma.post.delete({
+                    where: { id: args.id }
+                });
+                return true
+            } catch (error) {
+                throw new GraphQLError('Unable to delete this post!');
+            }
         }
     }
 }

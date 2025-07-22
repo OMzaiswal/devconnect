@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --loader ts-node/esm src/server.ts"
+    "dev": "tsx src/server.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -15,14 +15,20 @@
     "@apollo/server": "^4.12.2",
     "@as-integrations/express4": "^1.1.1",
     "@prisma/client": "^6.11.1",
-    "@types/bcrypt": "^5.0.2",
     "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "graphql": "^16.11.0"
+    "graphql": "^16.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "@my-monorepo/common": "workspace:*"
+
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
+    "@types/jsonwebtoken": "^9.0.10",
     "prisma": "^6.11.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

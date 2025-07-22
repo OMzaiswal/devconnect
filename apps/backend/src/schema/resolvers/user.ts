@@ -1,27 +1,28 @@
 import { GraphQLError } from "graphql";
 import { MyContext } from "../../server.js";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
+import { CreateUserSchema, UpdateUserSchema, CreateUserInput, UpdateUserInput } from "@my-monorepo/common";
 
-type CreateUserInput = {
-    name: string;
-    email: string;
-    password: string;
-    username: string;
-    age?: number;
-    gender?: string;
-    bio?: string;
-}
+// type CreateUserInput = {
+//     name: string;
+//     email: string;
+//     password: string;
+//     username: string;
+//     age?: number;
+//     gender?: string;
+//     bio?: string;
+// }
 
-type UpdateUserInput = {
-    name?: string;
-    email?: string;
-    password?: string;
-    username?: string;
-    age?: number;
-    gender?: string;
-    bio?: string;
-}
+// type UpdateUserInput = {
+//     name?: string;
+//     email?: string;
+//     password?: string;
+//     username?: string;
+//     age?: number;
+//     gender?: string;
+//     bio?: string;
+// }
 
 export const userResolvers = {
     Query: {
@@ -76,7 +77,8 @@ export const userResolvers = {
     Mutation: {
         createUser: async (parent:any , args: { input: CreateUserInput }, context: MyContext) => {
             try {
-                const hashedPassword = await bcrypt.hash(args.input.password, 10);
+                const validatedInput = CreateUserSchema.parse(args.input);
+                const hashedPassword = await bcrypt.hash(validatedInput.password, 10);
                 const user = await context.prisma.user.create({
                     data: {
                         ...args.input,

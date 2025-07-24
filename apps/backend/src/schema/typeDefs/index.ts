@@ -59,12 +59,12 @@ type Mutation {
 
 
     # Likes
-    likeUnlikePost(postId: ID!): likeToggleStatus!
+    likeUnlikePost(postId: ID!): likeToggleStatus
 
     # Comments
-    addComment(comment: String!): Comment!
-    updateComment(id: ID!, updatedComment: String!): Comment!
-    deleteComment(id: ID!): Boolean!
+    addComment(comment: String!, postId: ID!): Comment
+    updateComment(id: ID!, updatedComment: String!): Comment
+    deleteComment(id: ID!): Boolean
 
     # Skills
     addSkill(newSkill: String!): Skill

@@ -59,8 +59,7 @@ type Mutation {
 
 
     # Likes
-    likePost(postId: ID!): Like!
-    UnLikePost(postId: ID!): Boolean!
+    likeUnlikePost(postId: ID!): likeToggleStatus!
 
     # Comments
     addComment(comment: String!): Comment!

@@ -6,4 +6,9 @@ type Like {
     post: Post!
     user: User!
 }
+
+enum likeToggleStatus {
+    LIKED
+    UNLIKED
+}
 `

@@ -67,8 +67,8 @@ type Mutation {
     deleteComment(id: ID!): Boolean
 
     # Skills
-    addSkill(newSkill: String!): Skill
-    updateSkill(id: ID!, updatedSkill: String!): Skill!
+    addSkill(newSkill: String!): Boolean
+    updateSkill(id: ID!, updatedSkill: String!): Boolean
     deleteSkill(id: ID!): Boolean!
 
     # Notifications

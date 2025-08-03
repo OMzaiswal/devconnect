@@ -4,12 +4,12 @@ import { MyContext } from "../../server.js";
 
 export const skillResolvers = {
     Query: {
-        userSkills: async (_: any, args: { id: string }, context: MyContext) => {
+        userSkills: async (_: any, __: any, context: MyContext) => {
             if (!context.userId) throw new GraphQLError("UNAUTHENTICATED!");
 
             try {
                 const skills = await context.prisma.skill.findMany({
-                    where: { userId: args.id }
+                    where: { userId: context.userId }
                 })
                 return skills;
             } catch (error) {

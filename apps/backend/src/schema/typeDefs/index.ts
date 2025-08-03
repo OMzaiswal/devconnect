@@ -26,17 +26,17 @@ type Query {
 
     # Posts
     getPosts: [Post!]!
-    post(id: ID!): Post
+    getPost: Post
 
 
     # Comments
     getComments(postId: ID!): [Comment!]
 
     # skills
-    userSkills(userId: ID!): [Skill!]
+    userSkills: [Skill!]
 
     # Notifications
-    notifications(userId: ID!): [Notification!]
+    notifications: [Notification!]
 
 
     # Follows

@@ -28,13 +28,13 @@ export const postResolvers = {
             } 
         },
 
-        getPost: async(_:any, __: any, context: MyContext) => {
+        getPost: async(_:any, args: { id: string }, context: MyContext) => {
             if (!context.userId) {
                 throw new GraphQLError('Unauthenticated! You are not logged in');
             }
             try {
                 return await context.prisma.post.findUnique({ 
-                    where: { id: context.userId }
+                    where: { id: args.id }
                 })
             } catch (error) {
                 throw new GraphQLError('Failed to fetchh post')

@@ -197,41 +197,41 @@ export const userResolvers = {
         }
     },
 
+    // *** currently we don't need field resolvers and data loaders ***
+    // User: {
+    //     posts: async (parent: { id: string }, _: any, context: MyContext) => {
+    //         try {
+    //             return await context.prisma.post.findMany({
+    //                 where: { authorId: parent.id },
+    //                 select: {
+    //                     id: true,
+    //                     content: true,
+    //                     imgUrl: true
+    //                 }
+    //             })
+    //         } catch(error: any) {
+    //             console.error(`Error fetching posts for user ID ${parent.id}:`, error);
 
-    User: {
-        posts: async (parent: { id: string }, _: any, context: MyContext) => {
-            try {
-                return await context.prisma.post.findMany({
-                    where: { authorId: parent.id },
-                    select: {
-                        id: true,
-                        content: true,
-                        imgUrl: true
-                    }
-                })
-            } catch(error: any) {
-                console.error(`Error fetching posts for user ID ${parent.id}:`, error);
+    //             // Re-throw specific GraphQLError if it's already one (unlikely for Prisma errors here)
+    //             if (error instanceof GraphQLError) {
+    //                 throw error;
+    //             }
 
-                // Re-throw specific GraphQLError if it's already one (unlikely for Prisma errors here)
-                if (error instanceof GraphQLError) {
-                    throw error;
-                }
-
-                // For any other unexpected errors from Prisma/database
-                throw new GraphQLError('Failed to fetch user posts', {
-                    extensions: {
-                        code: 'INTERNAL_SERVER_ERROR',
-                        // Optionally include a more specific message if error.message is safe/useful,
-                        // or just keep it generic for production.
-                        originalError: error.message || 'An unexpected error occurred.'
-                    }
-                });
-            }
+    //             // For any other unexpected errors from Prisma/database
+    //             throw new GraphQLError('Failed to fetch user posts', {
+    //                 extensions: {
+    //                     code: 'INTERNAL_SERVER_ERROR',
+    //                     // Optionally include a more specific message if error.message is safe/useful,
+    //                     // or just keep it generic for production.
+    //                     originalError: error.message || 'An unexpected error occurred.'
+    //                 }
+    //             });
+    //         }
             
-        },
+    //     },
 
-        // likes: async (parent: any, _:any, context: MyContext) => {
+    //     // likes: async (parent: any, _:any, context: MyContext) => {
             
-        // }
-    }
+    //     // }
+    // }
 }

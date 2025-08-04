@@ -26,7 +26,7 @@ type Query {
 
     # Posts
     getPosts: [Post!]!
-    getPost: Post
+    getPost(id: ID!): Post
 
 
     # Comments

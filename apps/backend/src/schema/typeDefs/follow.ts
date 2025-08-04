@@ -7,4 +7,8 @@ type Follow{
     following: User!
     createdAt: String!
 }
+
+type FollowResponse {
+  followed: Boolean!
+}
 `

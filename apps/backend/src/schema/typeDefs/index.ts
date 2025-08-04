@@ -40,8 +40,8 @@ type Query {
 
 
     # Follows
-    followers(userId: ID!): [User!]
-    following(userId: ID!): [User!]
+    getFollowers: [User!]
+    getFollowing: [User!]
 
 }
 
@@ -76,7 +76,6 @@ type Mutation {
     markNotificationRead(id: ID!): Notification
 
     # Follows
-    followUser(followerId: ID!, followingId: ID!): Follow
-    unFollowUser(followerId: ID!, followingId: ID!): Boolean!
+    toggleFollowUser(targetUserId: ID!): FollowResponse
 }
 `

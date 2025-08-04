@@ -21,7 +21,7 @@
     "express": "^4.21.2",
     "graphql": "^16.11.0",
     "jsonwebtoken": "^9.0.2",
-    "@my-monorepo/common": "workspace:*"
+    "@my-monorepo/common": "*"
 
   },
   "devDependencies": {

@@ -109,9 +109,9 @@ export const userResolvers = {
                     throw new GraphQLError("Invalid crcedentials");
                 }
 
-                const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || '', { expiresIn: '7d' });
+                // const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || '', { expiresIn: '7d' });
                 const { password: _, ...userWithoutPassword } = user;
-                return { token, user: userWithoutPassword };
+                return { user: userWithoutPassword };
             } catch (error: any) {
                 if (error instanceof GraphQLError) {
                     throw error;

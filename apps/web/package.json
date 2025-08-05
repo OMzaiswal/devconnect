@@ -11,9 +11,13 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.9",
     "@repo/ui": "*",
     "@tailwindcss/postcss": "^4.1.11",
+    "graphql": "^16.11.0",
+    "graphql-request": "^7.2.0",
     "next": "^15.3.0",
+    "next-auth": "^4.24.11",
     "postcss": "^8.5.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -22,8 +26,9 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "@types/node": "^22.15.3",
-    "@types/react": "19.1.0",
+    "@types/graphql": "^14.2.3",
+    "@types/node": "^22.17.0",
+    "@types/react": "^19.1.0",
     "@types/react-dom": "19.1.1",
     "eslint": "^9.30.0",
     "typescript": "5.8.2"

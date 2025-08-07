@@ -28,6 +28,11 @@ input createUserInput {
     bio: String
 }
 
+input SignInInput {
+    email: String!
+    password: String!
+}
+
 input updateUserInput {
     name: String
     email: String

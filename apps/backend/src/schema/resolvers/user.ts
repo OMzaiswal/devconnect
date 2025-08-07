@@ -128,17 +128,18 @@ export const userResolvers = {
             if (!context.userId) {
                 throw new GraphQLError('Unauthenticated!');
             }
-            const { id , input }= args
+            const { id , input } = args
+            const validatedInput = UpdateUserSchema.parse(input);
             if ( id !== context.userId ) {
                 throw new GraphQLError('Unauthorized to update this user!')
             }
             try {
-                if (input.password) {
-                    input.password = await bcrypt.hash(input.password, 10);
+                if (validatedInput.password) {
+                    validatedInput.password = await bcrypt.hash(validatedInput.password, 10);
                 }
                 const updatedUser = await context.prisma.user.update({
                     where: { id },
-                    data: input,
+                    data: validatedInput,
                     select: {
                         id: true,
                         name: true,

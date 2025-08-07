@@ -49,7 +49,7 @@ type Mutation {
 
     # Users
     createUser(input: createUserInput): User!
-    signIn(email: String!, password: String!): AuthPayload
+    signIn(input: SignInInput): AuthPayload
     updateUser(id: ID!, input: updateUserInput): User
     deleteUser(id: ID!): Boolean!
     

@@ -3,11 +3,15 @@ import NextAuth, { User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { gql, GraphQLClient } from "graphql-request";
 
-const client = new GraphQLClient("http://localhost:4000/graphql");
+const client = new GraphQLClient("http://localhost:4000/graphql", {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
 
 
 type LoginResponse = {
-  login: {
+  signIn: {
     user: {
       id: string;
       email: string;
@@ -30,8 +34,8 @@ const handler = NextAuth({
       },
       async authorize(credentials): Promise<User | null> {
         const LOGIN_MUTATION = gql`
-          mutation Login($email: String!, $password: String!) {
-            login(email: $email, password: $password) {
+          mutation SignIn($input: SignInInput!) {
+            signIn(input: $input) {
               user {
                 id
                 email
@@ -46,12 +50,15 @@ const handler = NextAuth({
         `;
 
         try {
-          const { login }: LoginResponse = await client.request(LOGIN_MUTATION, {
-            email: credentials?.email,
-            password: credentials?.password,
+          const { signIn }: LoginResponse = await client.request(LOGIN_MUTATION, 
+            {
+              input: {
+                email: credentials?.email,
+                password: credentials?.password,
+              }
           });
-
-          return login.user;
+          // console.log(signIn.user)
+          return signIn.user;
         } catch (err) {
           console.error("Login failed:", err);
           return null;
@@ -75,9 +82,9 @@ const handler = NextAuth({
       return session;
     },
   },
-  // pages: {
-  //   signIn: "/login",
-  // },
+  pages: {
+    signIn: "/login",
+  },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",

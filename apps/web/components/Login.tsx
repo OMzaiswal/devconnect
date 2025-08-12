@@ -4,6 +4,9 @@ import React, { useState } from "react"
 import { SignInSchema, SignInInput } from '@my-monorepo/common';
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Card, CardContent,  CardHeader, CardTitle } from "./ui/card";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 export const LoginComponent = () => {
     const [formData, setFormData] = useState<SignInInput>({
@@ -42,38 +45,71 @@ export const LoginComponent = () => {
     }
 
 
+    // return (
+    //     <div className="flex flex-col justify-center h-screen items-center bg-black">
+    //         <div className="border rounded-4xl px-8 py-10 bg-white">
+    //             <h1 className="text-xl font-semibold text-center">Login</h1>
+    //             <form onSubmit={handleSubmit}>
+    //                 <input 
+    //                     type="email" 
+    //                     placeholder="Email"
+    //                     name="email"
+    //                     value={formData.email}
+    //                     onChange={handleChange}
+    //                     required
+    //                     className="p-2 my-2 border border-gray-400 rounded-md text-gray-800 text-lg"
+    //                 />
+    //                 <br />
+    //                 <input 
+                        // type="password" 
+                        // placeholder="Password"
+                        // name="password"
+                        // value={formData.password}
+                        // onChange={handleChange}
+                        // required
+    //                     className="p-2 my-2 border border-gray-400 rounded-md text-gray-800 text-lg"
+    //                 />
+    //                 <br />
+    //                 <button type="submit"
+    //                     className="bg-blue-400 text-white py-2 w-full border-0 rounded-lg text-lg mt-2"
+    //                 >Login</button>
+    //                 {error && <p>{error}</p>}
+    //             </form>
+    //         </div>
+    //     </div>
+    // )
+
     return (
-        <div className="flex flex-col justify-center h-screen items-center bg-black">
-            <div className="border rounded-4xl px-8 py-10 bg-white">
-                <h1 className="text-xl font-semibold text-center">Login</h1>
-                <form onSubmit={handleSubmit}>
-                    <input 
-                        type="email" 
-                        placeholder="Email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="p-2 my-2 border border-gray-400 rounded-md text-gray-800 text-lg"
-                    />
-                    <br />
-                    <input 
-                        type="password" 
-                        placeholder="Password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                        className="p-2 my-2 border border-gray-400 rounded-md text-gray-800 text-lg"
-                    />
-                    <br />
-                    <button type="submit"
-                        className="bg-blue-400 text-white py-2 w-full border-0 rounded-lg text-lg mt-2"
-                    >Login</button>
-                    {error && <p>{error}</p>}
-                </form>
-            </div>
+        <div className="flex justify-center items-center pt-50">
+            <Card className="w-full max-w-sm shadow-lg">
+                <CardHeader>
+                    <CardTitle className="font-semibold text-2xl text-center">Login</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <Input 
+                            type="email" 
+                            placeholder="Email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                        <Input 
+                            type="password" 
+                            placeholder="Password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                        <Button 
+                            variant="default" 
+                            className="w-full p-2 bg-blue-500 hover:bg-blue-600"
+                        >Login</Button>
+                    </form>
+                </CardContent>
+            </Card>
         </div>
     )
-
 }

@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent,  CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "@/features/auth/authSlice";
 
 export const LoginComponent = () => {
     const [formData, setFormData] = useState<SignInInput>({
@@ -15,6 +17,8 @@ export const LoginComponent = () => {
     })
     const [error, setError] = useState("");
     const router = useRouter()
+
+    const dispatch = useDispatch()
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +44,13 @@ export const LoginComponent = () => {
         if (result?.error) {
             setError(result.error);
         } else if (result?.ok) {
+            const session = await fetch('/api/auth/session').then(res => res.json());
+            dispatch(setCredentials({
+                id: session.user.id,
+                email: session.user.email,
+                name: session.user.name,
+                username: session.user.username
+            }))
             router.push('/')
         }
     }
@@ -104,6 +115,7 @@ export const LoginComponent = () => {
                             required
                         />
                         <Button 
+                            type="submit"
                             variant="default" 
                             className="w-full p-2 bg-blue-500 hover:bg-blue-600"
                         >Login</Button>

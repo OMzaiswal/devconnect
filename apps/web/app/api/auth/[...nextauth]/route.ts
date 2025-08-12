@@ -17,9 +17,9 @@ type LoginResponse = {
       email: string;
       username: string;
       name: string;
-      gender: string;
-      age: number;
-      bio: string;
+      // gender: string;
+      // age: number;
+      // bio: string;
     };
   };
 };
@@ -41,9 +41,9 @@ const handler = NextAuth({
                 email
                 username
                 name
-                gender
-                age
-                bio
+                # gender
+                # age
+                # bio
               }
             }
           }

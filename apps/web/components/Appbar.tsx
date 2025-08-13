@@ -5,7 +5,6 @@ import { House } from 'lucide-react';
 import { Handshake } from 'lucide-react';
 import { MessageSquareMore } from 'lucide-react';
 import { BellRing } from 'lucide-react';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 export const Appbar = () => {

@@ -1,14 +1,16 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { SignInSchema, SignInInput } from '@my-monorepo/common';
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent,  CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "@/features/auth/authSlice";
+import { RootState } from "@/store/store";
+import { Loader } from 'lucide-react';
 
 export const LoginComponent = () => {
     const [formData, setFormData] = useState<SignInInput>({
@@ -16,6 +18,7 @@ export const LoginComponent = () => {
         password: ""
     })
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const router = useRouter()
 
     const dispatch = useDispatch()
@@ -29,6 +32,7 @@ export const LoginComponent = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoading(true);
         try {
             SignInSchema.parse(formData);
         } catch (err: any) {
@@ -90,6 +94,14 @@ export const LoginComponent = () => {
     //     </div>
     // )
 
+    const user = useSelector((state: RootState) => state.auth)
+
+    useEffect(() => {
+        if (user.email) {
+            router.push('/');
+        }
+    }, [user.email, router])
+
     return (
         <div className="flex justify-center items-center pt-50">
             <Card className="w-full max-w-sm shadow-lg">
@@ -118,7 +130,8 @@ export const LoginComponent = () => {
                             type="submit"
                             variant="default" 
                             className="w-full p-2 bg-blue-500 hover:bg-blue-600"
-                        >Login</Button>
+                            >{loading ? <Loader /> : 'Login'}
+                        </Button>
                     </form>
                 </CardContent>
             </Card>

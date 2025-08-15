@@ -59,41 +59,6 @@ export const LoginComponent = () => {
         }
     }
 
-
-    // return (
-    //     <div className="flex flex-col justify-center h-screen items-center bg-black">
-    //         <div className="border rounded-4xl px-8 py-10 bg-white">
-    //             <h1 className="text-xl font-semibold text-center">Login</h1>
-    //             <form onSubmit={handleSubmit}>
-    //                 <input 
-    //                     type="email" 
-    //                     placeholder="Email"
-    //                     name="email"
-    //                     value={formData.email}
-    //                     onChange={handleChange}
-    //                     required
-    //                     className="p-2 my-2 border border-gray-400 rounded-md text-gray-800 text-lg"
-    //                 />
-    //                 <br />
-    //                 <input 
-                        // type="password" 
-                        // placeholder="Password"
-                        // name="password"
-                        // value={formData.password}
-                        // onChange={handleChange}
-                        // required
-    //                     className="p-2 my-2 border border-gray-400 rounded-md text-gray-800 text-lg"
-    //                 />
-    //                 <br />
-    //                 <button type="submit"
-    //                     className="bg-blue-400 text-white py-2 w-full border-0 rounded-lg text-lg mt-2"
-    //                 >Login</button>
-    //                 {error && <p>{error}</p>}
-    //             </form>
-    //         </div>
-    //     </div>
-    // )
-
     const user = useSelector((state: RootState) => state.auth)
 
     useEffect(() => {

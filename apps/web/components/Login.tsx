@@ -104,7 +104,7 @@ export const LoginComponent = () => {
 
     return (
         <div className="flex justify-center items-center pt-50">
-            <Card className="w-full max-w-sm shadow-lg">
+            <Card className="w-full max-w-sm shadow-lg pb-20">
                 <CardHeader>
                     <CardTitle className="font-semibold text-2xl text-center">Login</CardTitle>
                 </CardHeader>

@@ -12,6 +12,7 @@ import { logout } from '@/features/auth/authSlice';
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 import { Loader } from 'lucide-react';
+import Link from 'next/link';
 
 
 export const Appbar = () => {
@@ -62,8 +63,8 @@ export const Appbar = () => {
                 </div>
             ) : (
                 <div className="flex pr-4 justify-between space-x-4 text-2xl">
-                    <p>Join Now</p>
-                    <p>Signin</p>
+                    <Link href='/login' className='hover:text-red-500 hover:border px-2 py-1 rounded-xl'>Signin</Link>
+                    <Link href='/joinNow' className='hover:text-red-500 hover:border px-2 py-1 rounded-xl'>Join Now</Link>
                 </div>
             ) }
         </div>

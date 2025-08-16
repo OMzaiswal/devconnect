@@ -10,13 +10,13 @@ type Post {
     comments: [Comment!]!
 }
 
-input createPostInput {
+input CreatePostInput {
     content: String!
     imgUrl: String
     authorId: ID!
 }
 
-input updatePostInputs {
+input UpdatePostInputs {
     content: String
     imgUrl: String
 }

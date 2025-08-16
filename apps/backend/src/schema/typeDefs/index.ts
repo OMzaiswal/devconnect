@@ -48,14 +48,14 @@ type Query {
 type Mutation {
 
     # Users
-    createUser(input: createUserInput): User!
+    createUser(input: CreateUserInput): User!
     signIn(input: SignInInput): AuthPayload
-    updateUser(id: ID!, input: updateUserInput): User
+    updateUser(id: ID!, input: UpdateUserInput): User
     deleteUser(id: ID!): Boolean!
     
     # Posts
-    createPost(input: createPostInput): Post!
-    updatePost(id: ID!, input: updatePostInputs): Post
+    createPost(input: CreatePostInput): Post!
+    updatePost(id: ID!, input: UpdatePostInputs): Post
 
 
     # Likes

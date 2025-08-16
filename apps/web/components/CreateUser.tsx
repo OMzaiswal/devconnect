@@ -10,6 +10,7 @@ import { CreateUserSchema, CreateUserInput } from "@my-monorepo/common";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 
@@ -26,6 +27,7 @@ mutation CreateUser ($input:CreateUserInput!) {
 
 export const CreateUser = () => {
 
+  const router = useRouter();
   const [serverError, setServerError] = useState('');
 
   const { 
@@ -48,7 +50,27 @@ export const CreateUser = () => {
 
   const [createUser, { loading }] = useMutation(CREATE_USER);
 
-  const onSubmit = async (data: CreateUserInput) => {}
+  const onSubmit = async (data: CreateUserInput) => {
+    setServerError('')
+
+    const cleanedData = {
+      ...data,
+      age: data.age === undefined ? undefined : data.age,
+      gender: data.gender?.trim() === '' ? undefined : data.gender,
+      bio: data.bio?.trim() === '' ? undefined : data.bio
+    };
+
+    try {
+      await createUser({
+        variables: { input: cleanedData }
+      });
+      reset();
+      router.push('/login');
+    } catch(e: any) {
+      const msg = e?.graphQLErrors?.[0]?.message || e?.message || "Failed to create account!!";
+      setServerError(msg);
+    }
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50">

@@ -1,7 +1,6 @@
 import { GraphQLError } from "graphql";
 import { MyContext } from "../../server.js";
 import bcrypt from 'bcrypt'
-import jwt from "jsonwebtoken";
 import { CreateUserSchema, UpdateUserSchema, CreateUserInput, UpdateUserInput, SignInSchema, SignInInput } from "@my-monorepo/common";
 import { formatZodError } from "../../utils/errors/index.js";
 import { ZodError } from 'zod';
@@ -58,6 +57,7 @@ export const userResolvers = {
 
     Mutation: {
         createUser: async (parent:any , args: { input: CreateUserInput }, context: MyContext) => {
+            // console.log('Inputs here: ', args.input)
             try {
                 const validatedInput = CreateUserSchema.parse(args.input);
                 const hashedPassword = await bcrypt.hash(validatedInput.password, 10);
@@ -85,10 +85,10 @@ export const userResolvers = {
                     throw formatZodError(error);
                 }
                 if (error.code === 'P2002') {
-                    console.error("Prisma unique constraint error creating user:", error);
+                    // console.error("Prisma unique constraint error creating user:", error);
                     throw new GraphQLError('Email or username is already in use', { extensions: { code: 'UNIQUE_CONSTRAINT_VIOLATION', field: error.meta?.target } });
                 }
-                console.error("Error creating user:", error);
+                // console.error("Error creating user:", error);
                 throw new GraphQLError('Failed to create user', { extensions: { code: 'INTERNAL_SERVER_ERROR' } });
             }
             

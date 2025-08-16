@@ -18,7 +18,7 @@ type User {
     sentNotifications: [Notification!]!
 }
 
-input createUserInput {
+input CreateUserInput {
     name: String!
     email: String!
     password: String!
@@ -33,7 +33,7 @@ input SignInInput {
     password: String!
 }
 
-input updateUserInput {
+input UpdateUserInput {
     name: String
     email: String
     password: String

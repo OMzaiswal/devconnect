@@ -94,7 +94,7 @@ export const LoginComponent = () => {
                         <Button 
                             type="submit"
                             variant="default" 
-                            className="w-full p-2 bg-blue-500 hover:bg-blue-600"
+                            className="w-full p-2"
                             >{loading ? <Loader /> : 'Login'}
                         </Button>
                     </form>

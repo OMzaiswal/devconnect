@@ -37,6 +37,7 @@ export const LoginComponent = () => {
             SignInSchema.parse(formData);
         } catch (err: any) {
             setError(err.errors?.[0]?.message || "Invalid Input");
+            setLoading(false);
             return
         }
         const result = await signIn('credentials', {
@@ -47,6 +48,7 @@ export const LoginComponent = () => {
 
         if (result?.error) {
             setError(result.error);
+            setLoading(false);
         } else if (result?.ok) {
             const session = await fetch('/api/auth/session').then(res => res.json());
             dispatch(setCredentials({
@@ -69,7 +71,7 @@ export const LoginComponent = () => {
 
     return (
         <div className="flex justify-center items-center pt-50">
-            <Card className="w-full max-w-sm shadow-lg pb-20">
+            <Card className="w-full max-w-sm shadow-lg pb-10">
                 <CardHeader>
                     <CardTitle className="font-semibold text-2xl text-center">Login</CardTitle>
                 </CardHeader>
@@ -97,6 +99,9 @@ export const LoginComponent = () => {
                             className="w-full p-2"
                             >{loading ? <Loader /> : 'Login'}
                         </Button>
+                        {error && (
+                            <p className="text-md text-red-600 text-center">{error}</p>
+                        )}
                     </form>
                 </CardContent>
             </Card>

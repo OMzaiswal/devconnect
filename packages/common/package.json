@@ -6,12 +6,12 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "require": "./dist/index.js"
     },
     "./validation": {
       "types": "./dist/validation/userSchema.d.ts",
-      "import": "./dist/validation/userSchema.mjs",
+      "import": "./dist/validation/userSchema.js",
       "require": "./dist/validation/userSchema.js"
     }
   },

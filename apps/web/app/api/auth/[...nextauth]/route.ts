@@ -58,10 +58,17 @@ const handler = NextAuth({
               }
           });
           // console.log(signIn.user)
+          if (!signIn?.user) {
+            // 🔹 Better error message when user not found
+            throw new Error("Invalid email or password.");
+          }
           return signIn.user;
-        } catch (err) {
-          console.error("Login failed:", err);
-          return null;
+        } catch (err: any) {
+          // console.error("Login failed:", err);
+          throw new Error(
+            err.response?.errors?.[0]?.message ||
+            "Unable to login. Please check your credentials and try again."
+          );
         }
       },
     }),

@@ -13,6 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.13.9",
     "@hookform/resolvers": "^5.2.1",
+    "@my-monorepo/common": "*",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@reduxjs/toolkit": "^2.8.2",
@@ -20,6 +21,7 @@
     "@tailwindcss/postcss": "^4.1.11",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "firebase": "^12.1.0",
     "graphql": "^16.11.0",
     "graphql-request": "^7.2.0",
     "lucide-react": "^0.539.0",
@@ -32,8 +34,7 @@
     "react-redux": "^9.2.0",
     "redux-persist": "^6.0.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.11",
-    "@my-monorepo/common": "*"
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
